@@ -15,3 +15,7 @@ Installation:
   - Install requirements for this project if needed in PyCharm.
   - Run locally with python run environment not a appengine server task. (Like python main.py)
     - https://stackoverflow.com/questions/46432589/how-to-use-python-3-with-google-app-engines-local-development-server)
+  - Deploy the Hello World app by running the following command from the hello_world directory: (If new project first $ gcloud init)
+    - gcloud app deploy
+  - Launch your browser and view the app at http://YOUR_PROJECT_ID.appspot.com, by running the following command:
+    - gcloud app browse
