@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Copyright 2015 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,16 +18,44 @@
 import logging
 
 from flask import Flask
-
+from flask import request
+from flask import Response
 
 app = Flask(__name__)
 
+form="""
+<form method="POST" action="/testform">
+<label>Tarih Giriniz (1158-2167 arası olacak)
+<input name="tarih">
+</label>
+<input type="submit">
+</form>
+"""
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello Udacity!'
+    return(form)
 
+@app.route('/testform', methods = ['POST', 'GET'])
+def testhandler():
+    if(request.method == "POST"):
+        if(check_year(request.form["tarih"]) == True):
+            return("Dogru Tarih")
+        else:
+            return(form)
+    elif(request.method == "GET"):
+        coming = request.args["q2"]
+    return(coming)
+
+def check_year(yr):
+    if(yr and yr.isdigit()):
+        yr = int(yr)
+        if(yr > 1158 and yr < 2167):
+            return(True)
+        else:
+            return(False)
+    return (False)
 
 @app.errorhandler(500)
 def server_error(e):
